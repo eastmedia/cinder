@@ -3,10 +3,10 @@ module Cinder
 
   # == Usage
   #
-  #   campfire = Cinder::Campfire.new 'mysubdomain'
+  #   campfire = Cinder::Campfire.new 'mysubdomain', :ssl => true
   #   campfire.login 'myemail@example.com', 'mypassword'
   #   campfire.set_room 'Room Name'
-  #   campfire.retrieve_transcript <day>, <month>, <year>
+  #   campfire.retrieve_transcript date
   class Campfire
     attr_reader :subdomain, :uri, :room
     
@@ -50,11 +50,11 @@ module Cinder
       @room = find_room_by_name(room_name)
     end
 
-    # Retrieve the transcript from the +day+, +month+, and +year+ provided, and back it up to a local .csv file
-    def retrieve_transcript(day = Time.now.mday, month = Time.now.month, year = Time.now.year)
-      transcript_uri = URI.parse("#{@room[:uri].to_s}/transcript/#{year}/#{month}/#{day}")
+    # Retrieve the transcript from the Time object +date+, and back it up to a local .csv file
+    def retrieve_transcript(date)
+      transcript_uri = URI.parse("#{@room[:uri].to_s}/transcript/#{date.year}/#{date.month}/#{date.mday}")
       transcript = @agent.get(transcript_uri.to_s).parser
-      write_transcript(transcript, "campfire_#{@room[:name]}_#{day}_#{month}_#{year}")
+      write_transcript(transcript, "campfire_#{@room[:name]}_#{date.month >= 10 ? date.month : "0#{date.month}"}_#{date.mday >= 10 ? date.mday : "0#{date.mday}"}_#{date.year}")
     end
 
     private
