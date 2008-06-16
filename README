@@ -1,4 +1,4 @@
-= cinder - Campfire log exporter
+= cinder - Export Campfire transcripts into CSVs
  
   http://github.com/eastmedia/cinder
  
@@ -6,15 +6,27 @@
  
 == DESCRIPTION:
 
-Exports Campfire logs by scraping the "transcript" pages provided in Campfire.
+Cinder is a Ruby library for exporting transcripts from Campfire into CSV files.
 
 == REQUIREMENTS:
  
 * Ruby >= 1.8.6
  
 == INSTALL:
- 
-  gem install cinder
+
+  $ gem sources -a http://gems.github.com/ (you only need to do this once)
+  $ gem install eastmedia-cinder
+
+== SOURCE:
+
+Cinders's git repo is available on GitHub, which can be browsed at:
+
+  http://github.com/eastmedia/cinder
+
+and cloned from:
+
+  git://github.com/eastmedia/cinder.git
+
 
 From IRB or any script you write:
   
