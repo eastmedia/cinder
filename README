@@ -1,0 +1,41 @@
+= cinder - Campfire log exporter
+ 
+  http://github.com/eastmedia/cinder
+ 
+* mailto:matt@eastmedia.com
+ 
+== DESCRIPTION:
+
+Exports Campfire logs by scraping the "transcript" pages provided in Campfire.
+
+== REQUIREMENTS:
+ 
+* Ruby >= 1.8.6
+ 
+== INSTALL:
+ 
+  gem install cinder
+
+From IRB or any script you write:
+  
+  require "cinder"
+
+  campfire = Cinder::Campfire.new 'mysubdomain', :ssl => true
+  campfire.login 'myemail@example.com', 'mypassword'
+  campfire.set_room 'Room Name'
+  campfire.retrieve_transcript <day>, <month>, <year>
+  
+  
+== CREDITS:
+
+Thanks to the folks behind the tinder gem.
+Initial code by Mike Bueti at Eastmedia.
+ 
+== HISTORY:
+ 
+See CHANGELOG in this directory.
+
+== LICENSE:
+ 
+Copyright (c) 2008 Eastmedia (http://eastmedia.com)
+See MIT-LICENSE in this directory.

@@ -1,0 +1,8 @@
+# Development-related files
+.DS_Store
+*.tmproj
+radar.txt
+*.swp
+
+# Ignore emacs backup files
+*~
