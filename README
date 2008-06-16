@@ -35,8 +35,9 @@ From IRB or any script you write:
   campfire = Cinder::Campfire.new 'mysubdomain', :ssl => true
   campfire.login 'myemail@example.com', 'mypassword'
   campfire.set_room 'Room Name'
-  campfire.retrieve_transcript <day>, <month>, <year>
-  
+  campfire.retrieve_transcript <date>  
+  campfire.retrieve_transcripts_since <date>  
+  campfire.retrieve_transcripts_between <start_date> <end_date>
   
 == CREDITS:
 
