@@ -50,11 +50,27 @@ module Cinder
       @room = find_room_by_name(room_name)
     end
 
-    # Retrieve the transcript from the Time object +date+, and back it up to a local .csv file
+    # Retrieve the transcript for the +date+ passed in as a Time object, and store it locally as a csv file
     def retrieve_transcript(date)
       transcript_uri = URI.parse("#{@room[:uri].to_s}/transcript/#{date.year}/#{date.month}/#{date.mday}")
-      transcript = @agent.get(transcript_uri.to_s).parser
+      transcript_page = @agent.get(transcript_uri.to_s)
+      transcript = transcript_page.parser
       write_transcript(transcript, "campfire_#{@room[:name]}_#{date.month >= 10 ? date.month : "0#{date.month}"}_#{date.mday >= 10 ? date.mday : "0#{date.mday}"}_#{date.year}")
+    rescue WWW::Mechanize::ResponseCodeError
+    end
+
+    # Retrieve the transcripts from the +date+ passed in as a Time object, up until and including the current date
+    def retrieve_transcripts_since(date)
+      retrieve_transcripts_between(date, Time.now.utc)
+    end
+    
+    # Retrieve the transcripts created between the +start_date+ and +end_date+ passed in as a Time objects
+    def retrieve_transcripts_between(start_date, end_date)
+      while !(start_date.year >= end_date.year and start_date.month >= end_date.month and start_date.mday > end_date.mday)
+        puts start_date
+        retrieve_transcript(start_date)
+        start_date = start_date + 24*60*60
+      end
     end
 
     private
