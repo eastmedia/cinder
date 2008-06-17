@@ -66,11 +66,14 @@ module Cinder
       transcript_page = @agent.get(transcript_uri.to_s)
       transcript = transcript_page.parser
       write_transcript(transcript, "#{@directory}/#{@room[:name].gsub(" ", "_")}_#{date.strftime("%m_%d_%Y")}", date)
+      puts "Transcript retrieved from room '#{@room[:name]}' for #{date.strftime("%m/%d/%Y")}".green
     rescue WWW::Mechanize::ResponseCodeError
+      puts "No transcript found in room '#{@room[:name]}' for #{date.strftime("%m/%d/%Y")}".red
     end
 
     # Retrieve all of the transcripts for the current room
     def retrieve_all_transcripts
+      puts "Retrieving all transcripts from '#{@room[:name]}'. This could take some time.".yellow
       list_page = @agent.get("#{@uri}/files+transcripts?room_id=#{@room[:uri].to_s.split("/").last}")
       while list_page.links.detect { |link| link.text == "Older" }
         list_page.links.detect { |link| link.text == "Older" }.click
@@ -87,11 +90,13 @@ module Cinder
 
     # Retrieve the transcripts for the current room from the +date+ passed in as a Time object, up until and including the current date
     def retrieve_transcripts_since(date)
+      puts "Retrieving transcripts from '#{@room[:name]}' since #{date.strftime("%m/%d/%Y")}.".blue
       retrieve_transcripts_between(date, Time.now)
     end
     
     # Retrieve the transcripts for the current room created between the +start_date+ and +end_date+ passed in as a Time objects
     def retrieve_transcripts_between(start_date, end_date)
+      puts "Retrieving transcripts from '#{@room[:name]}' between #{start_date.strftime("%m/%d/%Y")} and #{end_date.strftime("%m/%d/%Y")}.".blue
       while start_date <= end_date
         retrieve_transcript(start_date)
         start_date = start_date + 24*60*60
@@ -110,11 +115,13 @@ module Cinder
 
     # Retrieve the transcripts from all rooms in this Campfire account created since the +date+ passed in as a Time object
     def retrieve_transcripts_from_all_rooms_since(date)
+      puts "Retrieving transcripts from all rooms in #{@uri.to_s} since #{date.strftime("%m/%d/%Y")}.".yellow
       retrieve_transcripts_from_all_rooms_between date, Time.now
     end
 
     # Retrieve the transcripts from all rooms in this Campfire account created between the +start_date+ and the +end_date+ passed in as a Time objects
     def retrieve_transcripts_from_all_rooms_between(start_date, end_date)
+      puts "Retrieving transcripts from all rooms in #{@uri.to_s} between #{start_date.strftime("%m/%d/%Y")} and #{end_date.strftime("%m/%d/%Y")}.".yellow
       preset_room = @room
       @rooms.each do |room|
         @room = room
@@ -125,6 +132,7 @@ module Cinder
 
     # Retrieve all of the transcripts created in all of the rooms in this Campfire account
     def retrieve_all_transcripts_from_all_rooms
+      puts "Retrieving all transcripts from #{@uri.to_s}. This could take some time.".yellow 
       preset_room = @room
       @rooms.each do |room|
         @room = room

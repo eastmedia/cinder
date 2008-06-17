@@ -10,8 +10,9 @@
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/cinder/campfire.rb, line 89</span>
+  <pre><span class="ruby-comment cmt"># File lib/cinder/campfire.rb, line 92</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retrieve_transcripts_since</span>(<span class="ruby-identifier">date</span>)
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Retrieving transcripts from '#{@room[:name]}' since #{date.strftime(&quot;%m/%d/%Y&quot;)}.&quot;</span>.<span class="ruby-identifier">blue</span>
       <span class="ruby-identifier">retrieve_transcripts_between</span>(<span class="ruby-identifier">date</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>)
     <span class="ruby-keyword kw">end</span></pre>
 </body>

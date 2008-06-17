@@ -23,3 +23,7 @@
 === 0.3.1 / 2008-06-16
 
 * Tiny release. Provides the date column in the CSV file in universal date format mm/dd/yyyy.
+
+=== 0.4.0 / 2008-06-16
+
+* Minor release. Provides colored output to the screen as transcripts are retrieved.

@@ -10,8 +10,9 @@
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/cinder/campfire.rb, line 73</span>
+  <pre><span class="ruby-comment cmt"># File lib/cinder/campfire.rb, line 75</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retrieve_all_transcripts</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Retrieving all transcripts from '#{@room[:name]}'. This could take some time.&quot;</span>.<span class="ruby-identifier">yellow</span>
       <span class="ruby-identifier">list_page</span> = <span class="ruby-ivar">@agent</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;#{@uri}/files+transcripts?room_id=#{@room[:uri].to_s.split(&quot;/&quot;).last}&quot;</span>)
       <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">list_page</span>.<span class="ruby-identifier">links</span>.<span class="ruby-identifier">detect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">text</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;Older&quot;</span> }
         <span class="ruby-identifier">list_page</span>.<span class="ruby-identifier">links</span>.<span class="ruby-identifier">detect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">text</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;Older&quot;</span> }.<span class="ruby-identifier">click</span>
