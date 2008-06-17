@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>retrieve_all_transcripts (Cinder::Campfire)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/cinder/campfire.rb, line 73</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retrieve_all_transcripts</span>
+      <span class="ruby-identifier">list_page</span> = <span class="ruby-ivar">@agent</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;#{@uri}/files+transcripts?room_id=#{@room[:uri].to_s.split(&quot;/&quot;).last}&quot;</span>)
+      <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">list_page</span>.<span class="ruby-identifier">links</span>.<span class="ruby-identifier">detect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">text</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;Older&quot;</span> }
+        <span class="ruby-identifier">list_page</span>.<span class="ruby-identifier">links</span>.<span class="ruby-identifier">detect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">text</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;Older&quot;</span> }.<span class="ruby-identifier">click</span>
+        <span class="ruby-identifier">list_page</span> = <span class="ruby-ivar">@agent</span>.<span class="ruby-identifier">page</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">links</span> = <span class="ruby-identifier">list_page</span>.<span class="ruby-identifier">links</span>
+      <span class="ruby-identifier">links</span>.<span class="ruby-identifier">pop</span>
+      <span class="ruby-identifier">earliest</span> = <span class="ruby-identifier">links</span>.<span class="ruby-identifier">pop</span>.<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;/&quot;</span>)
+      <span class="ruby-identifier">day</span> = <span class="ruby-identifier">earliest</span>.<span class="ruby-identifier">pop</span>
+      <span class="ruby-identifier">month</span> = <span class="ruby-identifier">earliest</span>.<span class="ruby-identifier">pop</span>
+      <span class="ruby-identifier">year</span> = <span class="ruby-identifier">earliest</span>.<span class="ruby-identifier">pop</span>
+      <span class="ruby-identifier">retrieve_transcripts_since</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">mktime</span>(<span class="ruby-identifier">year</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">month</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">day</span>.<span class="ruby-identifier">to_i</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
