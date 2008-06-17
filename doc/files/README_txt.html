@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README.txt</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README.txt</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README.txt
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Tue Jun 17 11:40:24 -0400 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>cinder - Export Campfire transcripts into CSVs</h1>
+<pre>
+  http://github.com/eastmedia/cinder
+</pre>
+<ul>
+<li><a href="mailto:matt@eastmedia.com">matt@eastmedia.com</a>
+
+</li>
+</ul>
+<h2>DESCRIPTION:</h2>
+<p>
+<a href="../classes/Cinder.html">Cinder</a> is a Ruby library for exporting
+transcripts from Campfire into CSV files.
+</p>
+<h2>REQUIREMENTS:</h2>
+<ul>
+<li>Ruby &gt;= 1.8.6
+
+</li>
+</ul>
+<h2>INSTALL:</h2>
+<pre>
+  $ gem sources -a http://gems.github.com/ (you only need to do this once)
+  $ gem install eastmedia-cinder
+</pre>
+<h2>SOURCE:</h2>
+<p>
+Cinders&#8216;s git repo is available on GitHub, which can be browsed at:
+</p>
+<pre>
+  http://github.com/eastmedia/cinder
+</pre>
+<p>
+and cloned from:
+</p>
+<pre>
+  git://github.com/eastmedia/cinder.git
+</pre>
+<p>
+From IRB or any script you write:
+</p>
+<pre>
+  require &quot;cinder&quot;
+
+  campfire = Cinder::Campfire.new 'mysubdomain', :ssl =&gt; true
+  campfire.login 'myemail@example.com', 'mypassword'
+  campfire.set_room 'Room Name'
+  campfire.retrieve_transcript &lt;date&gt;
+  campfire.retrieve_transcripts_since &lt;date&gt;
+  campfire.retrieve_transcripts_between &lt;start_date&gt; &lt;end_date&gt;
+</pre>
+<h2>CREDITS:</h2>
+<p>
+Thanks to the folks behind the tinder gem. Initial code by Mike Bueti at
+Eastmedia.
+</p>
+<h2>HISTORY:</h2>
+<p>
+See CHANGELOG in this directory.
+</p>
+<h2>LICENSE:</h2>
+<p>
+Copyright (c) 2008 Eastmedia (<a
+href="http://eastmedia.com">eastmedia.com</a>) See MIT-LICENSE in this
+directory.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
