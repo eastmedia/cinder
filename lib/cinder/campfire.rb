@@ -61,12 +61,12 @@ module Cinder
 
     # Retrieve the transcripts from the +date+ passed in as a Time object, up until and including the current date
     def retrieve_transcripts_since(date)
-      retrieve_transcripts_between(date, Time.now.utc)
+      retrieve_transcripts_between(date, Time.mktime(Time.now.utc.year, Time.now.utc.month, Time.now.utc.day))
     end
     
     # Retrieve the transcripts created between the +start_date+ and +end_date+ passed in as a Time objects
     def retrieve_transcripts_between(start_date, end_date)
-      while !(start_date.year >= end_date.year and start_date.month >= end_date.month and start_date.mday > end_date.mday)
+      while start_date <= end_date
         puts start_date
         retrieve_transcript(start_date)
         start_date = start_date + 24*60*60
