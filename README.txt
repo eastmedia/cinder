@@ -1,6 +1,6 @@
 = cinder - Export Campfire transcripts into CSVs
  
-  http://github.com/eastmedia/cinder
+  "http://github.com/eastmedia/cinder"
  
 * mailto:matt@eastmedia.com
  
