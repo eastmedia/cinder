@@ -1,8 +1,0 @@
-CHANGELOG
-History.txt
-MIT-LICENSE
-Manifest.txt
-README.txt
-Rakefile
-lib/cinder.rb
-lib/cinder/campfire.rb

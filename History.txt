@@ -9,3 +9,8 @@
 === 0.2.1 / 2008-06-16
 
 * Bug fix. Removed explicit require of hpricot by cinder.  Default retrieve_transcript to today.
+
+=== 0.2.2 / 2008-06-16
+
+* Bug fix. Fixed logic problem that was excluding the current date when calling retrieve_transcripts_since.
+* Tiny update. Added a retrieve_all_transcripts feature that scrapes all of the transcripts from the current room.

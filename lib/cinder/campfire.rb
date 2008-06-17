@@ -60,7 +60,7 @@ module Cinder
       end 
     end
 
-    # Retrieve the transcript for the +date+ passed in as a Time object, and store it locally as a csv file in the preselected directory, or the current location if no directory was set
+    # Retrieve the transcript for the current room and +date+, passed in as a Time object, and store it locally as a csv file in the preselected directory, or the current location if no directory was set
     def retrieve_transcript(date = Time.now)
       transcript_uri = URI.parse("#{@room[:uri].to_s}/transcript/#{date.year}/#{date.month}/#{date.mday}")
       transcript_page = @agent.get(transcript_uri.to_s)
@@ -69,12 +69,28 @@ module Cinder
     rescue WWW::Mechanize::ResponseCodeError
     end
 
-    # Retrieve the transcripts from the +date+ passed in as a Time object, up until and including the current date
+    # Retrieve all of the transcripts for the current room
+    def retrieve_all_transcripts
+      list_page = @agent.get("#{@uri}/files+transcripts?room_id=#{@room[:uri].to_s.split("/").last}")
+      while list_page.links.detect { |link| link.text == "Older" }
+        list_page.links.detect { |link| link.text == "Older" }.click
+        list_page = @agent.page
+      end
+      links = list_page.links
+      links.pop
+      earliest = links.pop.uri.to_s.split("/")
+      day = earliest.pop
+      month = earliest.pop
+      year = earliest.pop
+      retrieve_transcripts_since Time.mktime(year.to_i, month.to_i, day.to_i)
+    end
+
+    # Retrieve the transcripts for the current room from the +date+ passed in as a Time object, up until and including the current date
     def retrieve_transcripts_since(date)
-      retrieve_transcripts_between(date, Time.mktime(Time.now.utc.year, Time.now.utc.month, Time.now.utc.day))
+      retrieve_transcripts_between(date, Time.now)
     end
     
-    # Retrieve the transcripts created between the +start_date+ and +end_date+ passed in as a Time objects
+    # Retrieve the transcripts for the current room created between the +start_date+ and +end_date+ passed in as a Time objects
     def retrieve_transcripts_between(start_date, end_date)
       while start_date <= end_date
         retrieve_transcript(start_date)
