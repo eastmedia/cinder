@@ -50,12 +50,20 @@ module Cinder
       @room = find_room_by_name(room_name)
     end
 
+    def set_directory(path)
+      if File.exists? path and File.directory? path
+        @directory = path.reverse.index("/") == 0 ? path.chop : path
+      else
+        raise Error, "Invalid path name"
+      end 
+    end
+
     # Retrieve the transcript for the +date+ passed in as a Time object, and store it locally as a csv file
     def retrieve_transcript(date)
       transcript_uri = URI.parse("#{@room[:uri].to_s}/transcript/#{date.year}/#{date.month}/#{date.mday}")
       transcript_page = @agent.get(transcript_uri.to_s)
       transcript = transcript_page.parser
-      write_transcript(transcript, "campfire_#{@room[:name]}_#{date.month >= 10 ? date.month : "0#{date.month}"}_#{date.mday >= 10 ? date.mday : "0#{date.mday}"}_#{date.year}")
+      write_transcript(transcript, "#{@directory}/#{@room[:name]}_#{date.month >= 10 ? date.month : "0#{date.month}"}_#{date.mday >= 10 ? date.mday : "0#{date.mday}"}_#{date.year}")
     rescue WWW::Mechanize::ResponseCodeError
     end
 
@@ -67,7 +75,6 @@ module Cinder
     # Retrieve the transcripts created between the +start_date+ and +end_date+ passed in as a Time objects
     def retrieve_transcripts_between(start_date, end_date)
       while start_date <= end_date
-        puts start_date
         retrieve_transcript(start_date)
         start_date = start_date + 24*60*60
       end
