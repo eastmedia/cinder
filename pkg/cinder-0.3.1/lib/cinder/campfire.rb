@@ -62,10 +62,10 @@ module Cinder
 
     # Retrieve the transcript for the current room and +date+, passed in as a Time object, and store it locally as a csv file in the preselected directory, or the current location if no directory was set
     def retrieve_transcript(date = Time.now)
-      transcript_uri = URI.parse("#{@room[:uri].to_s}/transcript/#{date.year}/#{date.month}/#{date.mday}")
+      transcript_uri = URI.parse("#{@room[:uri].to_s}/transcript/#{date.strftime("%Y/%m/%d")}")
       transcript_page = @agent.get(transcript_uri.to_s)
       transcript = transcript_page.parser
-      write_transcript(transcript, "#{@directory}/#{@room[:name].gsub(" ", "_")}_#{date.month >= 10 ? date.month : "0#{date.month}"}_#{date.mday >= 10 ? date.mday : "0#{date.mday}"}_#{date.year}")
+      write_transcript(transcript, "#{@directory}/#{@room[:name].gsub(" ", "_")}_#{date.strftime("%m_%d_%Y")}", date)
     rescue WWW::Mechanize::ResponseCodeError
     end
 
@@ -146,23 +146,17 @@ module Cinder
     end
     
     # Parse the provided +transcript+ hpricot document and write the contents to the .csv file +file_name+
-    def write_transcript(transcript, file_name)
+    def write_transcript(transcript, file_name, date)
       writer = CSV.open("#{file_name}.csv", 'w')
       writer << ["Date", "Time", "User", "Message"]
-      date = nil
+      date = date.strftime("%m/%d/%Y")
       time = nil
       user = nil
       (transcript%"tbody[@id='chat']").each_child do |row|
         if row.class == Hpricot::Elem
           row.each_child do |cell|
             if cell.class == Hpricot::Elem
-              if cell.classes.include? "date"
-                if cell.containers.any?
-                  date = cell.containers.first.html
-                else
-                  date = cell.html
-                end
-              elsif cell.classes.include? "time"
+              if cell.classes.include? "time"
                 if cell.containers.any?
                   time = cell.containers.first.html
                 else

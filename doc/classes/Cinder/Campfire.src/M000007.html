@@ -12,10 +12,10 @@
 <body class="standalone-code">
   <pre><span class="ruby-comment cmt"># File lib/cinder/campfire.rb, line 64</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retrieve_transcript</span>(<span class="ruby-identifier">date</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>)
-      <span class="ruby-identifier">transcript_uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-node">&quot;#{@room[:uri].to_s}/transcript/#{date.year}/#{date.month}/#{date.mday}&quot;</span>)
+      <span class="ruby-identifier">transcript_uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-node">&quot;#{@room[:uri].to_s}/transcript/#{date.strftime(&quot;%Y/%m/%d&quot;)}&quot;</span>)
       <span class="ruby-identifier">transcript_page</span> = <span class="ruby-ivar">@agent</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">transcript_uri</span>.<span class="ruby-identifier">to_s</span>)
       <span class="ruby-identifier">transcript</span> = <span class="ruby-identifier">transcript_page</span>.<span class="ruby-identifier">parser</span>
-      <span class="ruby-identifier">write_transcript</span>(<span class="ruby-identifier">transcript</span>, <span class="ruby-node">&quot;#{@directory}/#{@room[:name].gsub(&quot; &quot;, &quot;_&quot;)}_#{date.month &gt;= 10 ? date.month : &quot;0#{date.month}&quot;}_#{date.mday &gt;= 10 ? date.mday : &quot;0#{date.mday}&quot;}_#{date.year}&quot;</span>)
+      <span class="ruby-identifier">write_transcript</span>(<span class="ruby-identifier">transcript</span>, <span class="ruby-node">&quot;#{@directory}/#{@room[:name].gsub(&quot; &quot;, &quot;_&quot;)}_#{date.strftime(&quot;%m_%d_%Y&quot;)}&quot;</span>, <span class="ruby-identifier">date</span>)
     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">WWW</span><span class="ruby-operator">::</span><span class="ruby-constant">Mechanize</span><span class="ruby-operator">::</span><span class="ruby-constant">ResponseCodeError</span>
     <span class="ruby-keyword kw">end</span></pre>
 </body>

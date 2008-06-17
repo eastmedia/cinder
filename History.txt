@@ -19,3 +19,7 @@
 
 * Minor release. Provides support form single, multi, and all-day exporting to a specific directory across all rooms in a Campfire account
 * Bug fix. Replaces spaces in room names with underscores during file save.
+
+=== 0.3.1 / 2008-06-16
+
+* Tiny release. Provides the date column in the CSV file in universal date format mm/dd/yyyy.

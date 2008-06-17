@@ -8,6 +8,6 @@ Dir[File.join(File.dirname(__FILE__), 'cinder/**/*.rb')].sort.each { |lib| requi
 
 
 module Cinder
-  VERSION = '0.3.0'
+  VERSION = '0.3.1'
   class Error < StandardError; end
 end
