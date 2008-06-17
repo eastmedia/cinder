@@ -8,7 +8,7 @@ module Cinder
   #   campfire.set_room 'Room Name'
   #   campfire.retrieve_transcript date
   class Campfire
-    attr_reader :subdomain, :uri, :room
+    attr_reader :subdomain, :uri, :room, :directory
     
     # Create a new connection to a campfire account with the given +subdomain+.
     # There's an +:ssl+ option to use SSL for the connection.
@@ -19,6 +19,7 @@ module Cinder
       @subdomain = subdomain
       @uri = URI.parse("#{options[:ssl] ? "https" : "http"}://#{subdomain}.campfirenow.com")
       @room = nil
+      @directory = "."
       @agent = WWW::Mechanize.new
       @logged_in = false
     end
@@ -50,6 +51,7 @@ module Cinder
       @room = find_room_by_name(room_name)
     end
 
+    # Set the directory where Cinder saves transcripts to +path+, 
     def set_directory(path)
       if File.exists? path and File.directory? path
         @directory = path.reverse.index("/") == 0 ? path.chop : path
@@ -58,7 +60,7 @@ module Cinder
       end 
     end
 
-    # Retrieve the transcript for the +date+ passed in as a Time object, and store it locally as a csv file
+    # Retrieve the transcript for the +date+ passed in as a Time object, and store it locally as a csv file in the preselected directory, or the current location if no directory was set
     def retrieve_transcript(date)
       transcript_uri = URI.parse("#{@room[:uri].to_s}/transcript/#{date.year}/#{date.month}/#{date.mday}")
       transcript_page = @agent.get(transcript_uri.to_s)
