@@ -1,6 +1,11 @@
-=== 1.0.0 / 2008-06-17
+=== 0.1.0 / 2008-06-16
 
-* 1 major enhancement
+* Initial release. Provides support for single-day exporting.
 
-  * Birthday!
+=== 0.2.0 / 2008-06-16
 
+* Minor release. Provides support for multi-day exporting to a specified directory. 
+
+=== 0.2.1 / 2008-06-16
+
+* Bug fix. Removed explicit require of hpricot by cinder.  Default retrieve_transcript to today.

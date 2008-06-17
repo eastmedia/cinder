@@ -11,6 +11,7 @@ Cinder is a Ruby library for exporting transcripts from Campfire into CSV files.
 == REQUIREMENTS:
  
 * Ruby >= 1.8.6
+* Mechanize gem
  
 == INSTALL:
 
@@ -46,7 +47,7 @@ Initial code by Mike Bueti at Eastmedia.
  
 == HISTORY:
  
-See CHANGELOG in this directory.
+See History.txt in this directory.
 
 == LICENSE:
  

@@ -1,5 +1,3 @@
-# -*- ruby -*-
-
 require 'rubygems'
 require 'hoe'
 require './lib/cinder.rb'
@@ -11,8 +9,4 @@ Hoe.new('cinder', Cinder::VERSION) do |p|
   p.email = "matt@eastmedia.com"
   p.url = 'http://github.com/eastmedia/cinder'
   p.extra_deps << ['mechanize']
-  p.extra_deps << ['hpricot']
 end
-
-
-# vim: syntax=Ruby

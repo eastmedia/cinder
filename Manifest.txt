@@ -1,4 +1,3 @@
-CHANGELOG
 History.txt
 MIT-LICENSE
 Manifest.txt
