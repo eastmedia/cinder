@@ -63,8 +63,7 @@ module Cinder
     # Retrieve the transcript for the current room and +date+, passed in as a Time object, and store it locally as a csv file in the preselected directory, or the current location if no directory was set
     def retrieve_transcript(date = Time.now)
       transcript_uri = URI.parse("#{@room[:uri].to_s}/transcript/#{date.strftime("%Y/%m/%d")}")
-      transcript_page = @agent.get(transcript_uri.to_s)
-      transcript = transcript_page.parser
+      transcript = get_transcript(transcript_uri)
       write_transcript(transcript, "#{@directory}/#{@room[:name].gsub(" ", "_")}_#{date.strftime("%m_%d_%Y")}", date)
       puts "Transcript retrieved from room '#{@room[:name]}' for #{date.strftime("%m/%d/%Y")}".green
     rescue WWW::Mechanize::ResponseCodeError
@@ -74,18 +73,7 @@ module Cinder
     # Retrieve all of the transcripts for the current room
     def retrieve_all_transcripts
       puts "Retrieving all transcripts from '#{@room[:name]}'. This could take some time.".yellow
-      list_page = @agent.get("#{@uri}/files+transcripts?room_id=#{@room[:uri].to_s.split("/").last}")
-      while list_page.links.detect { |link| link.text == "Older" }
-        list_page.links.detect { |link| link.text == "Older" }.click
-        list_page = @agent.page
-      end
-      links = list_page.links
-      links.pop
-      earliest = links.pop.uri.to_s.split("/")
-      day = earliest.pop
-      month = earliest.pop
-      year = earliest.pop
-      retrieve_transcripts_since Time.mktime(year.to_i, month.to_i, day.to_i)
+      retrieve_transcripts_since find_start_date(@room)
     end
 
     # Retrieve the transcripts for the current room from the +date+ passed in as a Time object, up until and including the current date
@@ -151,6 +139,25 @@ module Cinder
     # Find the room name and uri hash that matches the provided +room_name+
     def find_room_by_name(room_name)
       @rooms.collect { |room| room if room[:name] == room_name }.reject { |room| room.nil? }.first
+    end
+
+    def get_transcript(uri)
+      @agent.get(transcript_uri.to_s).parser
+    end
+
+    def find_start_date(room)
+      list_page = @agent.get("#{@uri}/files+transcripts?room_id=#{room[:uri].to_s.split("/").last}")
+      while list_page.links.detect { |link| link.text == "Older" }
+        list_page.links.detect { |link| link.text == "Older" }.click
+        list_page = @agent.page
+      end
+      links = list_page.links
+      links.pop
+      earliest = links.pop.uri.to_s.split("/")
+      day = earliest.pop
+      month = earliest.pop
+      year = earliest.pop
+      Time.mktime(year.to_i, month.to_i, day.to_i)
     end
     
     # Parse the provided +transcript+ hpricot document and write the contents to the .csv file +file_name+
