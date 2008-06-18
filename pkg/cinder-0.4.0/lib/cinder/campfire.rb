@@ -8,7 +8,7 @@ module Cinder
   #   campfire.set_room 'Room Name'
   #   campfire.retrieve_transcript date
   class Campfire
-    attr_reader :subdomain, :uri, :room, :directory
+    attr_reader :subdomain, :uri, :room, :directory, :agent
     
     # Create a new connection to a campfire account with the given +subdomain+.
     # There's an +:ssl+ option to use SSL for the connection.
@@ -26,12 +26,16 @@ module Cinder
 
     # Log in to campfire using your +email+ and +password+
     def login(email, password)
-      unless @agent.post("#{@uri.to_s}/login", "email_address" => email, "password" => password).uri == @uri
-        raise Error, "Campfire login failed"
-      end
-      @lobby = @agent.page
-      @rooms = get_rooms(@lobby)
-      @logged_in = true
+       unless login_with_email_and_password(email, password).uri == @uri
+         raise Error, "Campfire login failed"
+       end
+       @lobby = agent.page
+       @rooms = get_rooms(@lobby)
+       @logged_in = true
+    end
+
+    def login_with_email_and_password(email_address, password)
+      agent.post("#{@uri.to_s}/login", "email_address" => email_address, "password" => password)
     end
 
     # Returns true if currently logged in
@@ -41,7 +45,7 @@ module Cinder
 
     # Logs out of the campfire account
     def logout 
-      if @agent.get("#{@uri}/logout").uri == URI.parse("#{@uri.to_s}/login")
+      if @agent.get("#{@uri.to_s}/logout").uri == URI.parse("#{@uri.to_s}/login")
         @logged_in = false
       end
     end
