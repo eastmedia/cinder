@@ -84,7 +84,16 @@
   campfire = Cinder::Campfire.new 'mysubdomain', :ssl =&gt; true
   campfire.login 'myemail@example.com', 'mypassword'
   campfire.set_room 'Room Name'
+  campfire.set_directory 'dir/path'
   campfire.retrieve_transcript date
+  campfire.retrieve_transcripts_since date
+  campfire.retrieve_transcripts_between start_date, end_date
+  campfire.retrieve_all_transcripts
+  campfire.retrieve_transcripts_from_all_rooms date
+  campfire.retrieve_transcripts_from_all_rooms_since date
+  campfire.retrieve_transcripts_from_all_rooms_between start_date, end_date
+  campfire.retrieve_all_transcripts_from_all_rooms
+  campfire.logout
 </pre>
 
     </div>
@@ -96,20 +105,21 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000003">logged_in?</a>&nbsp;&nbsp;
+      <a href="#M000004">logged_in?</a>&nbsp;&nbsp;
       <a href="#M000002">login</a>&nbsp;&nbsp;
-      <a href="#M000004">logout</a>&nbsp;&nbsp;
+      <a href="#M000003">login_with_email_and_password</a>&nbsp;&nbsp;
+      <a href="#M000005">logout</a>&nbsp;&nbsp;
       <a href="#M000001">new</a>&nbsp;&nbsp;
-      <a href="#M000008">retrieve_all_transcripts</a>&nbsp;&nbsp;
-      <a href="#M000014">retrieve_all_transcripts_from_all_rooms</a>&nbsp;&nbsp;
-      <a href="#M000007">retrieve_transcript</a>&nbsp;&nbsp;
-      <a href="#M000010">retrieve_transcripts_between</a>&nbsp;&nbsp;
-      <a href="#M000011">retrieve_transcripts_from_all_rooms</a>&nbsp;&nbsp;
-      <a href="#M000013">retrieve_transcripts_from_all_rooms_between</a>&nbsp;&nbsp;
-      <a href="#M000012">retrieve_transcripts_from_all_rooms_since</a>&nbsp;&nbsp;
-      <a href="#M000009">retrieve_transcripts_since</a>&nbsp;&nbsp;
-      <a href="#M000006">set_directory</a>&nbsp;&nbsp;
-      <a href="#M000005">set_room</a>&nbsp;&nbsp;
+      <a href="#M000009">retrieve_all_transcripts</a>&nbsp;&nbsp;
+      <a href="#M000015">retrieve_all_transcripts_from_all_rooms</a>&nbsp;&nbsp;
+      <a href="#M000008">retrieve_transcript</a>&nbsp;&nbsp;
+      <a href="#M000011">retrieve_transcripts_between</a>&nbsp;&nbsp;
+      <a href="#M000012">retrieve_transcripts_from_all_rooms</a>&nbsp;&nbsp;
+      <a href="#M000014">retrieve_transcripts_from_all_rooms_between</a>&nbsp;&nbsp;
+      <a href="#M000013">retrieve_transcripts_from_all_rooms_since</a>&nbsp;&nbsp;
+      <a href="#M000010">retrieve_transcripts_since</a>&nbsp;&nbsp;
+      <a href="#M000007">set_directory</a>&nbsp;&nbsp;
+      <a href="#M000006">set_room</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -129,6 +139,11 @@
 
       <div class="name-list">
         <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">agent</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">directory</td>
           <td class="context-item-value">&nbsp;[R]&nbsp;</td>
@@ -185,12 +200,12 @@ href="Campfire.html#M000001">Cinder::Campfire.new</a>(&quot;my_subdomain&quot;,
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000003" class="method-detail">
-        <a name="M000003"></a>
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000003.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000003.html');return false;">
+          <a href="Campfire.src/M000004.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000004.html');return false;">
           <span class="method-name">logged_in?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -219,12 +234,31 @@ Log in to campfire using your <tt>email</tt> and <tt>password</tt>
         </div>
       </div>
 
-      <div id="method-M000004" class="method-detail">
-        <a name="M000004"></a>
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000004.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000004.html');return false;">
+          <a href="Campfire.src/M000003.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000003.html');return false;">
+          <span class="method-name">login_with_email_and_password</span><span class="method-args">(email_address, password)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Post a <a href="Campfire.html#M000002">login</a> request to the <a
+href="Campfire.html">Campfire</a> servers with the provided
+<tt>email_address</tt> and <tt>password</tt>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="Campfire.src/M000005.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000005.html');return false;">
           <span class="method-name">logout</span><span class="method-args">()</span>
           </a>
         </div>
@@ -236,12 +270,12 @@ Logs out of the campfire account
         </div>
       </div>
 
-      <div id="method-M000008" class="method-detail">
-        <a name="M000008"></a>
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000008.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000008.html');return false;">
+          <a href="Campfire.src/M000009.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000009.html');return false;">
           <span class="method-name">retrieve_all_transcripts</span><span class="method-args">()</span>
           </a>
         </div>
@@ -253,12 +287,12 @@ Retrieve all of the transcripts for the current room
         </div>
       </div>
 
-      <div id="method-M000014" class="method-detail">
-        <a name="M000014"></a>
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000014.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000014.html');return false;">
+          <a href="Campfire.src/M000015.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000015.html');return false;">
           <span class="method-name">retrieve_all_transcripts_from_all_rooms</span><span class="method-args">()</span>
           </a>
         </div>
@@ -271,12 +305,12 @@ href="Campfire.html">Campfire</a> account
         </div>
       </div>
 
-      <div id="method-M000007" class="method-detail">
-        <a name="M000007"></a>
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000007.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000007.html');return false;">
+          <a href="Campfire.src/M000008.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000008.html');return false;">
           <span class="method-name">retrieve_transcript</span><span class="method-args">(date = Time.now)</span>
           </a>
         </div>
@@ -290,12 +324,12 @@ directory, or the current location if no directory was set
         </div>
       </div>
 
-      <div id="method-M000010" class="method-detail">
-        <a name="M000010"></a>
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000010.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000010.html');return false;">
+          <a href="Campfire.src/M000011.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000011.html');return false;">
           <span class="method-name">retrieve_transcripts_between</span><span class="method-args">(start_date, end_date)</span>
           </a>
         </div>
@@ -308,12 +342,12 @@ Retrieve the transcripts for the current room created between the
         </div>
       </div>
 
-      <div id="method-M000011" class="method-detail">
-        <a name="M000011"></a>
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000011.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000011.html');return false;">
+          <a href="Campfire.src/M000012.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000012.html');return false;">
           <span class="method-name">retrieve_transcripts_from_all_rooms</span><span class="method-args">(date = Time.now)</span>
           </a>
         </div>
@@ -327,12 +361,12 @@ as a Time object
         </div>
       </div>
 
-      <div id="method-M000013" class="method-detail">
-        <a name="M000013"></a>
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000013.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000013.html');return false;">
+          <a href="Campfire.src/M000014.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000014.html');return false;">
           <span class="method-name">retrieve_transcripts_from_all_rooms_between</span><span class="method-args">(start_date, end_date)</span>
           </a>
         </div>
@@ -346,12 +380,12 @@ href="Campfire.html">Campfire</a> account created between the
         </div>
       </div>
 
-      <div id="method-M000012" class="method-detail">
-        <a name="M000012"></a>
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000012.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000012.html');return false;">
+          <a href="Campfire.src/M000013.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000013.html');return false;">
           <span class="method-name">retrieve_transcripts_from_all_rooms_since</span><span class="method-args">(date)</span>
           </a>
         </div>
@@ -365,12 +399,12 @@ passed in as a Time object
         </div>
       </div>
 
-      <div id="method-M000009" class="method-detail">
-        <a name="M000009"></a>
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000009.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000009.html');return false;">
+          <a href="Campfire.src/M000010.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000010.html');return false;">
           <span class="method-name">retrieve_transcripts_since</span><span class="method-args">(date)</span>
           </a>
         </div>
@@ -383,12 +417,12 @@ in as a Time object, up until and including the current date
         </div>
       </div>
 
-      <div id="method-M000006" class="method-detail">
-        <a name="M000006"></a>
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000006.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000006.html');return false;">
+          <a href="Campfire.src/M000007.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000007.html');return false;">
           <span class="method-name">set_directory</span><span class="method-args">(path)</span>
           </a>
         </div>
@@ -401,12 +435,12 @@ transcripts to <tt>path</tt>,
         </div>
       </div>
 
-      <div id="method-M000005" class="method-detail">
-        <a name="M000005"></a>
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
 
         <div class="method-heading">
-          <a href="Campfire.src/M000005.html" target="Code" class="method-signature"
-            onclick="popupCode('Campfire.src/M000005.html');return false;">
+          <a href="Campfire.src/M000006.html" target="Code" class="method-signature"
+            onclick="popupCode('Campfire.src/M000006.html');return false;">
           <span class="method-name">set_room</span><span class="method-args">(room_name)</span>
           </a>
         </div>

@@ -5,14 +5,16 @@
 
 <html>
 <head>
-  <title>set_room (Cinder::Campfire)</title>
+  <title>logout (Cinder::Campfire)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/cinder/campfire.rb, line 50</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_room</span>(<span class="ruby-identifier">room_name</span>)
-      <span class="ruby-ivar">@room</span> = <span class="ruby-identifier">find_room_by_name</span>(<span class="ruby-identifier">room_name</span>)
+  <pre><span class="ruby-comment cmt"># File lib/cinder/campfire.rb, line 58</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">logout</span> 
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@agent</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;#{@uri.to_s}/logout&quot;</span>).<span class="ruby-identifier">uri</span> <span class="ruby-operator">==</span> <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-node">&quot;#{@uri.to_s}/login&quot;</span>)
+        <span class="ruby-ivar">@logged_in</span> = <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span>
     <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

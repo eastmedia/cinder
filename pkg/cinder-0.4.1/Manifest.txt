@@ -6,3 +6,5 @@ Rakefile
 cinder.gemspec
 lib/cinder.rb
 lib/cinder/campfire.rb
+spec/cinder/campfire_spec.rb
+spec/spec_helper.rb

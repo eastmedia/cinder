@@ -2,28 +2,32 @@
 
 * Initial release. Provides support for single-day exporting.
 
-=== 0.2.0 / 2008-06-16
+=== 0.2.0 / 2008-06-17
 
 * Minor release. Provides support for multi-day exporting to a specified directory. 
 
-=== 0.2.1 / 2008-06-16
+=== 0.2.1 / 2008-06-17
 
 * Bug fix. Removed explicit require of hpricot by cinder.  Default retrieve_transcript to today.
 
-=== 0.2.2 / 2008-06-16
+=== 0.2.2 / 2008-06-17
 
 * Tiny release. Provides support for retrieving all transcripts in a single room.
 * Bug fix. Fixed logic problem that was excluding the current date when calling retrieve_transcripts_since.
 
-=== 0.3.0 / 2008-06-16
+=== 0.3.0 / 2008-06-17
 
 * Minor release. Provides support form single, multi, and all-day exporting to a specific directory across all rooms in a Campfire account
 * Bug fix. Replaces spaces in room names with underscores during file save.
 
-=== 0.3.1 / 2008-06-16
+=== 0.3.1 / 2008-06-17
 
 * Tiny release. Provides the date column in the CSV file in universal date format mm/dd/yyyy.
 
-=== 0.4.0 / 2008-06-16
+=== 0.4.0 / 2008-06-17
 
 * Minor release. Provides colored output to the screen as transcripts are retrieved.
+
+=== 0.4.1 / 2008-06-18
+
+* Tiny release. Provides a user agent alias of "Mac FireFox" to Campfire when scraping.

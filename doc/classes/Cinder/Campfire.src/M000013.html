@@ -5,20 +5,15 @@
 
 <html>
 <head>
-  <title>retrieve_transcripts_from_all_rooms_between (Cinder::Campfire)</title>
+  <title>retrieve_transcripts_from_all_rooms_since (Cinder::Campfire)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/cinder/campfire.rb, line 123</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retrieve_transcripts_from_all_rooms_between</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>)
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Retrieving transcripts from all rooms in #{@uri.to_s} between #{start_date.strftime(&quot;%m/%d/%Y&quot;)} and #{end_date.strftime(&quot;%m/%d/%Y&quot;)}.&quot;</span>.<span class="ruby-identifier">yellow</span>
-      <span class="ruby-identifier">preset_room</span> = <span class="ruby-ivar">@room</span>
-      <span class="ruby-ivar">@rooms</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">room</span><span class="ruby-operator">|</span>
-        <span class="ruby-ivar">@room</span> = <span class="ruby-identifier">room</span>
-        <span class="ruby-identifier">retrieve_transcripts_between</span> <span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>
-      <span class="ruby-keyword kw">end</span>
-      <span class="ruby-ivar">@room</span> = <span class="ruby-identifier">preset_room</span>
+  <pre><span class="ruby-comment cmt"># File lib/cinder/campfire.rb, line 120</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retrieve_transcripts_from_all_rooms_since</span>(<span class="ruby-identifier">date</span>)
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Retrieving transcripts from all rooms in #{@uri.to_s} since #{date.strftime(&quot;%m/%d/%Y&quot;)}.&quot;</span>.<span class="ruby-identifier">yellow</span>
+      <span class="ruby-identifier">retrieve_transcripts_from_all_rooms_between</span> <span class="ruby-identifier">date</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
     <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

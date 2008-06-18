@@ -6,7 +6,16 @@ module Cinder
   #   campfire = Cinder::Campfire.new 'mysubdomain', :ssl => true
   #   campfire.login 'myemail@example.com', 'mypassword'
   #   campfire.set_room 'Room Name'
+  #   campfire.set_directory 'dir/path'
   #   campfire.retrieve_transcript date
+  #   campfire.retrieve_transcripts_since date
+  #   campfire.retrieve_transcripts_between start_date, end_date
+  #   campfire.retrieve_all_transcripts
+  #   campfire.retrieve_transcripts_from_all_rooms date
+  #   campfire.retrieve_transcripts_from_all_rooms_since date
+  #   campfire.retrieve_transcripts_from_all_rooms_between start_date, end_date
+  #   campfire.retrieve_all_transcripts_from_all_rooms
+  #   campfire.logout
   class Campfire
     attr_reader :subdomain, :uri, :room, :directory, :agent
     
@@ -21,6 +30,7 @@ module Cinder
       @room = nil
       @directory = "."
       @agent = WWW::Mechanize.new
+      @agent.user_agent_alias = "Mac FireFox"
       @logged_in = false
     end
 
@@ -34,6 +44,7 @@ module Cinder
        @logged_in = true
     end
 
+    # Post a login request to the Campfire servers with the provided +email_address+ and +password+
     def login_with_email_and_password(email_address, password)
       agent.post("#{@uri.to_s}/login", "email_address" => email_address, "password" => password)
     end
@@ -145,10 +156,12 @@ module Cinder
       @rooms.collect { |room| room if room[:name] == room_name }.reject { |room| room.nil? }.first
     end
 
+    # Retrieve the hpricot document representing the Campfire transcript at the provided +uri+
     def get_transcript(uri)
-      @agent.get(transcript_uri.to_s).parser
+      @agent.get(uri.to_s).parser
     end
 
+    # Find the first date that transcripts exist for the provided +room+
     def find_start_date(room)
       list_page = @agent.get("#{@uri}/files+transcripts?room_id=#{room[:uri].to_s.split("/").last}")
       while list_page.links.detect { |link| link.text == "Older" }
