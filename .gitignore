@@ -6,3 +6,8 @@ radar.txt
 
 # Ignore emacs backup files
 *~
+
+# Gem-build related files
+pkg/
+doc/
+ri/
